@@ -19,6 +19,7 @@ interface ScreenData {
 type RootStackParamList = {
   Home: undefined;
   About: undefined;
+  Reanimate: undefined;
 };
 
 // Define the type for the navigation prop specific to this screen
@@ -72,7 +73,14 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             navigation.navigate("About");
           }}
         >
-          Abouttt
+          About
+        </Text>
+        <Text
+          onPress={() => {
+            navigation.navigate("Reanimate");
+          }}
+        >
+          Reanimate
         </Text>
       </View>
     </SafeAreaView>
