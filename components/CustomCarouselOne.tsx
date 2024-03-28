@@ -33,8 +33,7 @@ const CustomCarouselOne = () => {
   return (
     <>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>Choose a style that perfectly</Text>
-        <Text style={styles.text}>reflects your true self </Text>
+        <Text style={styles.text}>Custom Carousel One</Text>
       </View>
       <Animated.FlatList
         onScroll={onScroll}
