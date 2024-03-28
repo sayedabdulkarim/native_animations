@@ -6,28 +6,29 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import Button from "./Button";
 import { data } from "@/data/data";
 import Item from "./Item";
-// import {
-//   useAnimatedScrollHandler,
-//   useSharedValue,
-// } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
+import {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from "react-native-reanimated";
 
 const CustomCarouselOne = () => {
   const { width } = useWindowDimensions();
-  //   const x = useSharedValue(0);
+  const x = useSharedValue(0);
   const ITEM_WIDTH = 250;
   const ITEM_HEIGHT = 400;
   const MARGIN_HORIZONTAL = 20;
   const ITEM_FULL_WIDTH = ITEM_WIDTH + MARGIN_HORIZONTAL * 2;
   const SPACER = (width - ITEM_FULL_WIDTH) / 2;
 
-  //   const onScroll = useAnimatedScrollHandler({
-  //     onScroll: (event) => {
-  //       x.value = event.contentOffset.x;
-  //     },
-  //   });
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      // console.log({ x });
+      x.value = event.contentOffset.x;
+    },
+  });
 
   return (
     <>
@@ -35,7 +36,8 @@ const CustomCarouselOne = () => {
         <Text style={styles.text}>Choose a style that perfectly</Text>
         <Text style={styles.text}>reflects your true self </Text>
       </View>
-      <FlatList
+      <Animated.FlatList
+        onScroll={onScroll}
         ListHeaderComponent={<View />}
         ListFooterComponentStyle={{ width: SPACER }}
         ListFooterComponent={<View />}
@@ -50,6 +52,8 @@ const CustomCarouselOne = () => {
               height={ITEM_HEIGHT}
               width={ITEM_WIDTH}
               marginHorizontal={MARGIN_HORIZONTAL}
+              x={x}
+              fullWidth={ITEM_FULL_WIDTH}
             />
           );
         }}
@@ -59,7 +63,6 @@ const CustomCarouselOne = () => {
         decelerationRate={"fast"}
         snapToInterval={ITEM_FULL_WIDTH}
       />
-      <Button text={"Activate the Card"} />
     </>
   );
 };

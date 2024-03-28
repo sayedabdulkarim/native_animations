@@ -1,36 +1,76 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import Animated, {
+  Extrapolation,
+  SharedValue,
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 import { Data } from "@/data/data";
 
 type Props = {
-  index: number;
   item: Data;
-  height: number;
   width: number;
+  height: number;
   marginHorizontal: number;
+  fullWidth: number;
+  x: SharedValue<number>;
+  index: number;
 };
 
-const Item = ({ index, item, width, height, marginHorizontal }: Props) => {
+const Item = ({
+  item,
+  width,
+  height,
+  marginHorizontal,
+  fullWidth,
+  x,
+  index,
+}: Props) => {
+  const animatedStyle = useAnimatedStyle(() => {
+    const rotateZ = interpolate(
+      x.value,
+      [(index - 1) * fullWidth, index * fullWidth, (index + 1) * fullWidth],
+      [20, 0, -20],
+      Extrapolation.CLAMP
+    );
+    const translateY = interpolate(
+      x.value,
+      [(index - 1) * fullWidth, index * fullWidth, (index + 1) * fullWidth],
+      [60, 0, 60],
+      Extrapolation.CLAMP
+    );
+    return {
+      transform: [{ rotateZ: `${rotateZ}deg` }, { translateY: translateY }],
+    };
+  });
+
   return (
-    <View style={[styles.container, { width, height, marginHorizontal }]}>
+    <Animated.View
+      style={[
+        styles.container,
+        { width: width, height: height, marginHorizontal: marginHorizontal },
+        animatedStyle,
+      ]}
+    >
       <View style={styles.imageContainer}>
         <Image
-          source={item?.image}
-          style={[styles.image, { width }]}
+          source={item.image}
+          style={[styles.image, { width: width }]}
           resizeMode="cover"
         />
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.textContainer}>
-          <Text style={styles.textName}>{item?.name}</Text>
-          <Text style={styles.textExp}>{item?.exp}</Text>
+          <Text style={styles.textName}>{item.name}</Text>
+          <Text style={styles.textExp}>{item.exp}</Text>
         </View>
         <View style={styles.visaContainer}>
-          <Image source={item?.visa} style={styles.visa} resizeMode="contain" />
+          <Image source={item.visa} resizeMode="contain" style={styles.visa} />
         </View>
       </View>
       <Image source={require("@/assets/images/chip.png")} style={styles.chip} />
-    </View>
+    </Animated.View>
   );
 };
 

@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { NavigationProp } from "@react-navigation/native";
 import CustomCarouselOne from "@/components/CustomCarouselOne";
@@ -22,9 +22,12 @@ const Reanimate: React.FC<ReanimateProps> = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <CustomCarouselOne />
-      <Text onPress={() => navigation.goBack()} style={styles.goBack}>
+      {/* <Text onPress={() => navigation.goBack()} style={styles.goBack}>
         GO BACK
-      </Text>
+      </Text> */}
+      <Pressable style={styles.button} onPress={() => navigation.goBack()}>
+        <Text style={styles.text}>GO BACK</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
@@ -38,5 +41,17 @@ const styles = StyleSheet.create({
   },
   goBack: {
     color: "white",
+  },
+  button: {
+    backgroundColor: "white",
+    marginHorizontal: 30,
+    marginVertical: 20,
+    padding: 18,
+    borderRadius: 10,
+  },
+  text: {
+    color: "#111111",
+    textAlign: "center",
+    fontSize: 18,
   },
 });
