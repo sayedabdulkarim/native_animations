@@ -14,8 +14,22 @@ const Item = ({ index, item, width, height, marginHorizontal }: Props) => {
   return (
     <View style={[styles.container, { width, height, marginHorizontal }]}>
       <View style={styles.imageContainer}>
-        <Image source={item?.image} style={styles.image} resizeMode="cover" />
+        <Image
+          source={item?.image}
+          style={[styles.image, { width }]}
+          resizeMode="cover"
+        />
       </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.textContainer}>
+          <Text style={styles.textName}>{item?.name}</Text>
+          <Text style={styles.textExp}>{item?.exp}</Text>
+        </View>
+        <View style={styles.visaContainer}>
+          <Image source={item?.visa} style={styles.visa} resizeMode="contain" />
+        </View>
+      </View>
+      <Image source={require("@/assets/images/chip.png")} style={styles.chip} />
     </View>
   );
 };
