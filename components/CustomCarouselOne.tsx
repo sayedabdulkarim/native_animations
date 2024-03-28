@@ -36,6 +36,10 @@ const CustomCarouselOne = () => {
         <Text style={styles.text}>reflects your true self </Text>
       </View>
       <FlatList
+        ListHeaderComponent={<View />}
+        ListFooterComponentStyle={{ width: SPACER }}
+        ListFooterComponent={<View />}
+        ListHeaderComponentStyle={{ width: SPACER }}
         data={data}
         keyExtractor={(item) => item.id + item.name}
         renderItem={({ item, index }) => {
@@ -51,6 +55,9 @@ const CustomCarouselOne = () => {
         }}
         horizontal
         showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={16}
+        decelerationRate={"fast"}
+        snapToInterval={ITEM_FULL_WIDTH}
       />
       <Button text={"Activate the Card"} />
     </>
