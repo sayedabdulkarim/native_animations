@@ -4,6 +4,7 @@ import { Routes } from "./Routes";
 import Home from "@/screens/Home";
 import About from "@/screens/About";
 import ReanimateScreen from "@/screens/Reanimate";
+import UiPract from "@/screens/UiPract";
 
 // Create the stack navigator
 const Stack = createStackNavigator();
@@ -14,7 +15,7 @@ const MainNavigation = () => {
       initialRouteName={Routes.Home}
       screenOptions={{ header: () => null, headerShown: false }}
     >
-      <Stack.Screen name={Routes.Home} component={Home} />
+      <Stack.Screen name={Routes.Home} component={UiPract} />
       <Stack.Screen name={Routes.About} component={About} />
       <Stack.Screen name={Routes.Reanimate} component={ReanimateScreen} />
     </Stack.Navigator>
